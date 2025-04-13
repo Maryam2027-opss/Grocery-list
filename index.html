@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript: Calculate Grocery Price</title>
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="script" href="script.js" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Calculate Your Grocery Price</h1>
+
+      <form name="formcalc">
+        <table border="1">
+          <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Price With Discount</th>
+          </tr>
+
+          <!-- Row 1 -->
+          <tr>
+            <td>
+              <select name="item1" class="form-control">
+                <option>Select Item</option>
+                <option>Pasta and Rice</option>
+                <option>Frozen Foods</option>
+                <option>Meat and Seafood</option>
+                <option>Bakery and Bread</option>
+                <option>Soups and Canned Goods</option>
+                <option>Dairy, Cheese, and Eggs</option>
+                <option>Oils, Sauces</option>
+              </select>
+            </td>
+            <td>
+              <select name="quantity1" class="form-control">
+                <option>Select Quantity</option>
+                <option>1 kg</option>
+                <option>2 kg</option>
+                <option>3 kg</option>
+                <option>4 kg</option>
+                <option>5 kg</option>
+              </select>
+            </td>
+            <td><input type="text" name="txtnum1" class="form-control" /></td>
+            <td>
+              <input
+                type="number"
+                id="price"
+                class="form-control"
+                placeholder="Price"
+              />
+            </td>
+          </tr>
+
+          <!-- Row 2 -->
+          <tr>
+            <td>
+              <select name="item2" class="form-control">
+                <option>Select Item</option>
+                <option>Pasta and Rice</option>
+                <option>Frozen Foods</option>
+                <option>Meat and Seafood</option>
+                <option>Bakery and Bread</option>
+                <option>Soups and Canned Goods</option>
+                <option>Dairy, Cheese, and Eggs</option>
+                <option>Oils, Sauces</option>
+              </select>
+            </td>
+            <td>
+              <select name="quantity2" class="form-control">
+                <option>Select Quantity</option>
+                <option>1 kg</option>
+                <option>2 kg</option>
+                <option>3 kg</option>
+                <option>4 kg</option>
+                <option>5 kg</option>
+              </select>
+            </td>
+            <td><input type="text" name="txtnum2" class="form-control" /></td>
+            <td>
+              <input
+                type="number"
+                id="discount"
+                class="form-control"
+                placeholder="Discount %"
+              />
+            </td>
+          </tr>
+
+          <!-- Row 3 -->
+          <tr>
+            <td colspan="3">
+              <input
+                type="text"
+                name="txtnum3"
+                class="form-control"
+                placeholder="Another Item Price"
+              />
+            </td>
+            <td>
+              <button type="button" id="btn" class="btn btn-warning">
+                Calculate New Price
+              </button>
+            </td>
+          </tr>
+
+          <!-- Row 4 -->
+          <tr>
+            <td colspan="3">
+              <input
+                type="text"
+                name="txtnum4"
+                class="form-control"
+                placeholder="Another Item Price"
+              />
+            </td>
+            <td>
+              <h5 id="cdiscount"></h5>
+              <h5 id="newprice"></h5>
+            </td>
+          </tr>
+
+          <!-- Total Row -->
+          <tr>
+            <td colspan="2">
+              <input
+                type="button"
+                value="Calculate Total Price"
+                onclick="sumValues()"
+                class="btn btn-primary"
+              />
+            </td>
+            <td colspan="2">
+              <input type="text" name="txtres" class="form-control" readonly />
+            </td>
+          </tr>
+        </table>
+      </form>
+
+      <div id="button"></div>
+    </div>
+
+    <script>
+      function sumValues() {
+        let total = 0;
+        for (let i = 1; i <= 4; i++) {
+          let val = Number(document.formcalc['txtnum' + i].value);
+          if (!isNaN(val)) total += val;
+        }
+        document.formcalc.txtres.value = total;
+      }
+
+      document.getElementById('btn').addEventListener('click', function () {
+        let price = parseFloat(document.getElementById('price').value) || 0;
+        let discount =
+          parseFloat(document.getElementById('discount').value) || 0;
+
+        let discountAmount = (price * discount) / 100;
+        let newPrice = price - discountAmount;
+
+        document.getElementById('cdiscount').innerText =
+          'You save: ' + discountAmount.toFixed(2);
+        document.getElementById('newprice').innerText =
+          'New price: ' + newPrice.toFixed(2);
+      });
+    </script>
+  </body>
+</html>
